@@ -5,6 +5,7 @@
 
 var React = require('react');
 var Navbar = require('./Navbar.react');
+var AddContactModal = require('./AddContactModal.react');
 var ContactList = require('./ContactList.react');
 var CMStore = require('../stores/CMStore');
 
@@ -29,11 +30,12 @@ var CMApp = React.createClass({
 	},
 	render: function() {
 		return(
-			<div>
-			  Contact Holder
+			<ul className="collection">
 			  <Navbar/>
 			  <ContactList data={this.state.allContacts}/>
-			</div>
+			  <AddContactModal />
+			</ul>
+
 		);
 	},
 	/**
@@ -42,6 +44,7 @@ var CMApp = React.createClass({
 	_onChange: function() {
 		this.setState(getContactsState());
 	}
+	
 });
 
 module.exports = CMApp;
