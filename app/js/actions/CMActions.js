@@ -7,10 +7,12 @@ var CMActions = {
   /**
    * @param {string}
    */
-  create: function(name) {
+  create: function(newContact) {
     AppDispatcher.dispatch({
       actionType: CMConstants.CM_CREATE,
-      name: name
+      name: newContact.name,
+      phone: newContact.phone,
+      email: newContact.email
     });
   }
 
