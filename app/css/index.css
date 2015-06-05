@@ -1,6 +1,9 @@
 .collection-header {
 	padding: 1em;
 }
+.collection-item:hover {
+	background-color: #e3f2fd;
+}
 
 .hidden-btn {
 	position: absolute; 

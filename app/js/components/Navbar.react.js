@@ -9,13 +9,14 @@ var Navbar = React.createClass({
 		return(
 			<li className="collection-header">
 				<span className="title flow-text">Contact Manager</span>
-				<a onClick={this._openModal} className="blue darken-1 waves-effect waves-circle waves-light btn-floating secondary-content">
+				<a onClick={this._openAddModal} className="blue darken-1 waves-effect waves-circle waves-light btn-floating secondary-content">
 	    			<i className="mdi-content-add"></i>
 	  			</a>
 			</li>
 		);
 	},
-	_openModal: function() {
+	// Opening AddContactModal component
+	_openAddModal: function() {
 		$('#add_contact_modal').openModal();
 	}
 });
