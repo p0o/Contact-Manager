@@ -8,14 +8,16 @@ var CHANGE_EVENT = 'change';
 
 var _contacts = {};
 
-function create(name) {
+function create(newContact) {
   // Hand waving here -- not showing how this interacts with XHR or persistent
   // server-side storage.
   // Using the current timestamp + random number in place of a real id.
-  var id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
+  var id = Math.round(Math.random() * 9999999);
   _contacts[id] = {
     id: id,
-    name: name
+    name: newContact.name,
+    phone: newContact.phone,
+    email: newContact.email
   };
 }
 
@@ -57,7 +59,7 @@ AppDispatcher.register(function(action) {
     case CMConstants.CM_CREATE:
     text = action.name.trim();
       if (text !== '') {
-        create(text);
+        create(action);
         CMStore.emitChange();
       }
       break;

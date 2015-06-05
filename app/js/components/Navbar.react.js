@@ -1,14 +1,22 @@
 var React = require('react');
 var CMActions = require('../actions/CMActions');
 
+/*
+ * Show Add button and Program header
+ */
 var Navbar = React.createClass({
 	render:function() {
 		return(
-			<nav><a onClick={this._addNewContact}>Add</a></nav>
+			<li className="collection-header">
+				<span className="title flow-text">Contact Manager</span>
+				<a onClick={this._openModal} className="blue darken-1 waves-effect waves-circle waves-light btn-floating secondary-content">
+	    			<i className="mdi-content-add"></i>
+	  			</a>
+			</li>
 		);
 	},
-	_addNewContact: function() {
-		CMActions.create('Pooria');
+	_openModal: function() {
+		$('#add_contact_modal').openModal();
 	}
 });
 
