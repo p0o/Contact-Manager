@@ -15,9 +15,11 @@ var Navbar = React.createClass({
 			</li>
 		);
 	},
+
 	// Opening AddContactModal component
 	_openAddModal: function() {
-		$('#add_contact_modal').openModal();
+		$('#contact_modal').openModal();
+		//CMActions.createNew();
 	}
 });
 

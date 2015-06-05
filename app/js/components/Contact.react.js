@@ -1,4 +1,5 @@
 var React = require('react');
+var CMActions = require('../actions/CMActions');
 
 var Contact = React.createClass({
 	render:function() {
@@ -13,12 +14,13 @@ var Contact = React.createClass({
 		    <p>Phone Number: {contact.phone} <br />
 		    Email: {contact.email}
 		    </p>
-		    <a onClick={this._editContact} className="secondary-content"><i className="mdi-editor-mode-edit"></i></a>
+		    <a href="#" onClick={this._openEditModal} className="secondary-content"><i className="mdi-editor-mode-edit"></i></a>
 			</li>
 		);
 	},
-	_editContact: function() {
-		alert(this.props.contact.id);
+	_openEditModal: function() {
+		var contact = this.props.contact;
+		CMActions.edit(contact);
 	}
 });
 

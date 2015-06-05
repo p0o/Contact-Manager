@@ -1,11 +1,12 @@
 /**
  * This component operates as a "Controller-View".  It listens for changes in
- * the TodoStore and passes the new data to its children.
+ * the CMStore and passes the new data to its children.
  */
 
 var React = require('react');
 var Navbar = require('./Navbar.react');
 var ContactModal = require('./ContactModal.react');
+var EditContactModal = require('./EditContactModal.react');
 var ContactList = require('./ContactList.react');
 var CMStore = require('../stores/CMStore');
 var CMActions = require('../actions/CMActions');
@@ -15,36 +16,53 @@ var CMActions = require('../actions/CMActions');
  */
 function getContactsState() {
   return {
-    allContacts: CMStore.getAll()
+    allContacts: CMStore.getAll(),
+    editContact: CMStore.getEditContact()
   };
 }
 
 var CMApp = React.createClass({
 	getInitialState: function() {
+    // loading existing data
 		this._initializeContacts();
-    	return getContactsState();
-  	},
-  	componentDidMount: function() {
+    return getContactsState();
+  },
+  componentDidMount: function() {
 		CMStore.addChangeListener(this._onChange);
 	},
 	componentWillUnmount: function() {
 		CMStore.removeChangeListener(this._onChange);
 	},
 	render: function() {
+    // request to edit a specific contact from store
+    var editId = this.state.editContact.id;
+    var editContact = this.state.editContact;
+    if (editId !== undefined) {
+      $('#edit_contact_modal').openModal();
+      // filling with data
+      $('#edit_contact_form').find('#contact_id').val(editContact.id);
+      $('#edit_contact_form').find('#contact_name').val(editContact.name);
+      $('#edit_contact_form').find('#contact_phone').val(editContact.phone);
+      $('#edit_contact_form').find('#contact_email').val(editContact.email);
+      $('#edit_contact_form').find('#contact_avatar').val(editContact.avatar);
+    }
+    // main block
 		return(
 			<ul className="collection">
 			  <Navbar/>
 			  <ContactList data={this.state.allContacts}/>
 			  <ContactModal />
+        <EditContactModal editContact={this.state.editContact} />
 			</ul>
 
 		);
 	},
 	/**
-	* Event handler for 'change' events coming from the TodoStore
+	* Event handler for 'change' events coming from the CMStore
 	*/
 	_onChange: function() {
 		this.setState(getContactsState());
+
 	},
 	_initializeContacts: function() {
 		// loading imaginary contacts

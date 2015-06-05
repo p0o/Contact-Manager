@@ -7,9 +7,10 @@ var assign = require('object-assign');
 var CHANGE_EVENT = 'change';
 
 var _contacts = [];
+var _editContact = {};
 
+// saving new contact
 function create(newContact) {
-  // creating new contact
   var id = Math.round(Math.random() * 9999999);
   _contacts[id] = {
     id: id,
@@ -20,13 +21,37 @@ function create(newContact) {
   };
 }
 
+// sending edit id to controller view
+function edit(contact) {
+  _editContact = {
+    id: contact.id,
+    name: contact.name,
+    phone: contact.phone,
+    email: contact.email,
+    avatar: contact.avatar
+  };
+}
+
+// saving edited contact
+function save(contact) {
+  _contacts[contact.id] = {
+    id: contact.id,
+    name: contact.name,
+    phone: contact.phone,
+    email: contact.email,
+    avatar: contact.avatar
+  };
+}
 
 
 var CMStore = assign({}, EventEmitter.prototype, {
   /**
-   * Get the entire collection of TODOs.
+   * Get the entire Contacts.
    * @return {object}
    */
+  getEditContact: function() {
+    return _editContact;
+  },
   getAll: function() {
     return _contacts;
   },
@@ -56,11 +81,21 @@ AppDispatcher.register(function(action) {
 
   switch(action.actionType) {
     case CMConstants.CM_CREATE:
-    text = action.name.trim();
+      text = action.name.trim();
       if (text !== '') {
         create(action);
         CMStore.emitChange();
       }
+      break;
+
+    case CMConstants.CM_EDIT:
+      edit(action);
+      CMStore.emitChange();
+      break;
+
+    case CMConstants.CM_SAVE:
+      save(action);
+      CMStore.emitChange();
       break;
 
     default:
