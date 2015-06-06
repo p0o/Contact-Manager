@@ -22,9 +22,9 @@ function getContactsState() {
 }
 
 var CMApp = React.createClass({
-	getInitialState: function() {
+  getInitialState: function() {
     // loading existing data
-		this._initializeContacts();
+    this._initializeContacts();
     return getContactsState();
   },
   componentDidMount: function() {
