@@ -9,16 +9,19 @@ var CHANGE_EVENT = 'change';
 var _contacts = [];
 var _editContact = {};
 
+// will be used to incremental id for contacts
+var currentId = 0;
+
 // saving new contact
 function create(newContact) {
-  var id = Math.round(Math.random() * 9999999);
-  _contacts[id] = {
-    id: id,
+  _contacts[currentId] = {
+    id: currentId,
     name: newContact.name,
     phone: newContact.phone,
     email: newContact.email,
     avatar: newContact.avatar
   };
+  currentId+=1;
 }
 
 // sending edit id to controller view
