@@ -46,6 +46,16 @@ var CMActions = {
       email: contact.email,
       avatar: contact.avatar
     });
+  },
+
+  /**
+   * removing contact
+   */
+  remove: function(removeId) {
+    AppDispatcher.dispatch({
+      actionType: CMConstants.CM_REMOVE,
+      id: removeId
+    });
   }
 
 };
