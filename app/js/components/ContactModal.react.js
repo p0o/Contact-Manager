@@ -6,30 +6,30 @@ var ContactModal = React.createClass({
 		return(
 			<div id="contact_modal" className="modal">
 				<form id="contact_form" onSubmit={this._saveContact}>
-				    <div className="modal-content">
-				    	<h4>Add New Contact</h4>
-					    <div className="input-field">
-						    <i className="mdi-action-account-circle prefix"></i>
-						    <input id="contact_name" type="text" className="validate" />
-						    <label for="icon_prefix">Name</label>
-					    </div>
-					    <div className="input-field">
-					        <i className="mdi-communication-phone prefix"></i>
-					        <input id="contact_phone" type="tel" className="validate"/>
-					        <label for="icon_telephone">Phone</label>
-				        </div>
-				        <div className="input-field">
-					        <i className="mdi-communication-email prefix"></i>
-					        <input id="contact_email" type="tel" className="validate"/>
-					        <label for="icon_email">Email</label>
-				        </div>
-				    </div>
-				    <input type="submit" className="hidden-btn"/>
+					<div className="modal-content">
+						<h4>Add New Contact</h4>
+						<div className="input-field">
+							<i className="mdi-action-account-circle prefix"></i>
+							<input id="contact_name" type="text" className="validate" />
+							<label for="icon_prefix">Name</label>
+						</div>
+						<div className="input-field">
+							<i className="mdi-communication-phone prefix"></i>
+							<input id="contact_phone" type="tel" className="validate"/>
+							<label for="icon_telephone">Phone</label>
+						</div>
+						<div className="input-field">
+							<i className="mdi-communication-email prefix"></i>
+							<input id="contact_email" type="tel" className="validate"/>
+							<label for="icon_email">Email</label>
+						</div>
+					</div>
+					<input type="submit" className="hidden-btn"/>
 				</form>
-				    
-			    <div className="modal-footer">
-			      <a onClick={this._saveContact} className="modal-action modal-close waves-effect waves-green btn-flat">Press enter or click here</a>
-			    </div>
+
+				<div className="modal-footer">
+					<a onClick={this._saveContact} className="modal-action modal-close waves-effect waves-green btn-flat">Press enter or click here</a>
+				</div>
 			</div>
 		);
 	},
@@ -45,7 +45,7 @@ var ContactModal = React.createClass({
 		newContact.email = form.find('#contact_email').val();
 
 		CMActions.create(newContact);
-		$('#contact_modal').closeModal();
+		
 		this._clearContactForm();
 	},
 	/*
@@ -57,6 +57,7 @@ var ContactModal = React.createClass({
 		form.find('#contact_name').val('');
 		form.find('#contact_phone').val('');
 		form.find('#contact_email').val('');
+		$('#contact_modal').closeModal();
 	}
 });
 

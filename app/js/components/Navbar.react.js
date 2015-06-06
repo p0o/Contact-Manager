@@ -9,9 +9,9 @@ var Navbar = React.createClass({
 		return(
 			<li className="collection-header">
 				<span className="title flow-text">Contact Manager</span>
-				<a onClick={this._openAddModal} className="blue darken-1 waves-effect waves-circle waves-light btn-floating secondary-content">
-	    			<i className="mdi-content-add"></i>
-	  			</a>
+				<a onClick={this._openAddModal} className="teal darken-1 waves-effect waves-circle waves-light btn-floating secondary-content">
+					<i className="mdi-content-add"></i>
+				</a>
 			</li>
 		);
 	},
@@ -19,7 +19,8 @@ var Navbar = React.createClass({
 	// Opening AddContactModal component
 	_openAddModal: function() {
 		$('#contact_modal').openModal();
-		//CMActions.createNew();
+		// focus on the first field
+		$('#contact_modal').find('#contact_name').focus();
 	}
 });
 

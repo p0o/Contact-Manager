@@ -29,45 +29,57 @@ var CMApp = React.createClass({
   },
   componentDidMount: function() {
 		CMStore.addChangeListener(this._onChange);
-	},
-	componentWillUnmount: function() {
-		CMStore.removeChangeListener(this._onChange);
-	},
+  },
+  componentWillUnmount: function() {
+    CMStore.removeChangeListener(this._onChange);
+  },
 	render: function() {
     // request to edit a specific contact from store
     var editId = this.state.editContact.id;
     var editContact = this.state.editContact;
     if (editId !== undefined) {
       $('#edit_contact_modal').openModal();
-      // filling with data
+
+      // fill form elements with selected contact info
       $('#edit_contact_form').find('#contact_id').val(editContact.id);
       $('#edit_contact_form').find('#contact_name').val(editContact.name);
       $('#edit_contact_form').find('#contact_phone').val(editContact.phone);
       $('#edit_contact_form').find('#contact_email').val(editContact.email);
       $('#edit_contact_form').find('#contact_avatar').val(editContact.avatar);
+
+      // focus on the first field with a little delay so it won't mess-
+      // with modal focus
+      setTimeout(function() {
+        $('#edit_contact_form').find('#contact_name').focus();
+      },50);
+      
+
+      // changing back to undefined so it prevent from opening the modal-
+      // everytime the view is rendering
+      this.state.editContact.id = undefined;
     }
     // main block
-		return(
-			<ul className="collection">
-			  <Navbar/>
-			  <ContactList data={this.state.allContacts}/>
-			  <ContactModal />
+    return(
+      <ul className="collection">
+        <Navbar/>
+        <ContactList data={this.state.allContacts}/>
+        <ContactModal />
         <EditContactModal editContact={this.state.editContact} />
-			</ul>
+      </ul>
 
-		);
-	},
-	/**
-	* Event handler for 'change' events coming from the CMStore
-	*/
-	_onChange: function() {
-		this.setState(getContactsState());
+    );
+  },
+  /**
+  * Event handler for 'change' events coming from the CMStore
+  */
+  _onChange: function() {
+    this.setState(getContactsState());
 
-	},
-	_initializeContacts: function() {
-		// loading imaginary contacts
-		// can also be loaded from a remote server
-		var contacts = [
+  },
+  _initializeContacts: function() {
+    // loading imaginary contacts
+    // can also be loaded from a remote server
+    var contacts = [
             {
               id: 1,
               name : 'Terrence S. Hatfield',
@@ -111,7 +123,7 @@ var CMApp = React.createClass({
         contacts.forEach(function(obj) {
         	CMActions.create(obj);
         });
-	}
+  }
 
 });
 

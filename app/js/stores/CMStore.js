@@ -46,6 +46,13 @@ function save(contact) {
   };
 }
 
+// removing contact by user
+function remove(removeId) {
+  if (_contacts.hasOwnProperty(removeId)) {
+    delete _contacts[removeId];
+  }
+}
+
 
 var CMStore = assign({}, EventEmitter.prototype, {
   /**
@@ -98,6 +105,11 @@ AppDispatcher.register(function(action) {
 
     case CMConstants.CM_SAVE:
       save(action);
+      CMStore.emitChange();
+      break;
+
+    case CMConstants.CM_REMOVE:
+      remove(action.id);
       CMStore.emitChange();
       break;
 
