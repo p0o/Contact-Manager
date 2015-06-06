@@ -20,7 +20,7 @@ var ContactModal = React.createClass({
 						</div>
 						<div className="input-field">
 							<i className="mdi-communication-email prefix"></i>
-							<input id="contact_email" type="tel" className="validate"/>
+							<input id="contact_email" type="email" className="validate"/>
 							<label for="icon_email">Email</label>
 						</div>
 					</div>
